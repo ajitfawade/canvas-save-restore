@@ -1,5 +1,5 @@
 # canvas-save-restore
 
-Minimal node-express boilerplate for small to medium projects\
+Save your canvas to a mongo database and restore it.
 
 [![HitCount](http://hits.dwyl.com/ajitfawade/canvas-save-restore.svg)](http://hits.dwyl.com/ajitfawade/canvas-save-restore)

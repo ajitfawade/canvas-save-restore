@@ -1,38 +1,25 @@
 import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import axios from "axios";
+import { MDBContainer } from "mdbreact";
 import { ToastContainer, toast } from "react-toastify";
-import logo from "./logo.svg";
+import Home from "./pages/Home";
+import Drawing from "./pages/Drawing";
+import Create from "./pages/Create";
 import "./App.css";
 
 function App() {
-  useEffect(() => {
-    axios
-      .get("/api/test")
-      .then((resp) => {
-        toast.success("APIs are working");
-      })
-      .catch((err) => {
-        toast.error("APIs are not working");
-      });
-  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <MDBContainer>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/create" component={Create} />
+          <Route exact path="/:drawingId" component={Drawing} />
+        </Switch>
+      </Router>
       <ToastContainer position="top-right" newestOnTop />
-    </div>
+    </MDBContainer>
   );
 }
 

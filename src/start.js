@@ -98,7 +98,7 @@ function errorMiddleware(error, req, res, next) {
   if (res.headersSent) {
     console.log("headers sent");
     next(error);
-  } else if (isCelebrate(err)) {
+  } else if (isCelebrate(error)) {
     console.log("celebrate error");
     return Response.fail(
       res,

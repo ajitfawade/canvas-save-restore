@@ -1,11 +1,15 @@
 import express from "express";
-// any other routes imports would go here
+import { getDrawingRoutes } from "./drawing";
+
 function getRoutes() {
-  // create a router for all the routes of our app
   const router = express.Router();
+
   router.use("/test", (req, res) => {
     res.status(200).send("Okay");
   });
+
+  router.use("/drawings", getDrawingRoutes());
+
   return router;
 }
 export { getRoutes };

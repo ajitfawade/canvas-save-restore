@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/ajitfawade/canvas-save-restore#readme",
   "dependencies": {
+    "aws-sdk": "^2.764.0",
     "celebrate": "^13.0.3",
     "concurrently": "^5.3.0",
     "cors": "^2.8.5",
@@ -35,10 +36,14 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "http-status-codes": "^2.1.4",
+    "image-data-uri": "^2.0.1",
     "lodash": "^4.17.20",
     "loglevel": "^1.6.8",
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "tmp": "^0.2.1",
     "winston": "^3.3.3"
   },
   "devDependencies": {

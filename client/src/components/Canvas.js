@@ -1,19 +1,28 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const Canvas = ({ setImageData }) => {
+const Canvas = ({ setImageData, imageURL = "" }) => {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    canvas.style.width = `${window.innerWidth}px`;
-    canvas.style.height = `${window.innerHeight}px`;
+    const context = canvas.getContext("2d");
+    if (imageURL) {
+      const img = new Image();
+      img.src = imageURL;
+      img.setAttribute("crossorigin", "anonymous");
+      canvas.height = img.height;
+      canvas.width = img.width;
+      context.drawImage(img, 0, 0);
+    } else {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+    }
     canvas.style.backgroundColor = "black";
 
-    const context = canvas.getContext("2d");
     // context.scale(2, 2);
     context.lineCap = "round";
     context.strokeStyle = "white";

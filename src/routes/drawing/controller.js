@@ -6,7 +6,6 @@ export default class DrawingController {
   static async saveDrawing(req, res) {
     try {
       Logger.log("info", "Saving drawing");
-      console.log("REQ:", req.body.fileName);
       const drawing = await DrawingService.saveDrawing({
         image: req.body.image,
         fileName: req.body.fileName,
@@ -21,7 +20,7 @@ export default class DrawingController {
 
   static async getDrawing(req, res) {
     try {
-      const drawing = await DrawingService.getDrawing(req.params.drawingId);
+      const drawing = await DrawingService.getDrawing(req.params);
 
       Response.success(res, drawing);
     } catch (err) {

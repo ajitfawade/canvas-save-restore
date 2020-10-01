@@ -35,7 +35,6 @@ export default class DrawingService {
 
       return { data: saved };
     } catch (err) {
-      console.error(err);
       Logger.log("error", "Unable to save drawing", err);
 
       throw Response.createError({
@@ -48,28 +47,22 @@ export default class DrawingService {
   static async getDrawing(params) {
     try {
       let drawing = await DrawingModel.findById(params.drawingId).exec();
-      s3.getSignedUrl(
-        "getObject",
-        {
-          Bucket: drawingBucket,
-          Key: `${drawing.fileName}.png`,
-          Expires: expirySeconds || 60 * 5, // in seconds
-        },
-        (err, data) => {
-          if (!err) {
-            drawing = drawing.toObject();
-            drawing.imagePath = data;
-            return { data: drawing };
-          } else {
-            throw React.createError({
-              message: "Unable to get the drawing",
-              code: httpStatusCodes.INTERNAL_SERVER_ERROR,
-            });
-          }
-        }
-      );
+      if (!drawing)
+        throw Response.createError({
+          message: "No such drawing",
+          code: httpStatusCodes.NOT_FOUND,
+        });
+      const imageURL = await s3.getSignedUrl("getObject", {
+        Bucket: drawingBucket,
+        Key: `${drawing.fileName}.png`,
+        Expires: 60 * 5, // in seconds
+      });
+
+      drawing = drawing.toObject();
+      return { data: { ...drawing, imagePath: imageURL } };
     } catch (err) {
       Logger.log("error", "Unable to get drawing", err);
+
       throw Response.createError({
         message: "Unable to get drawing",
         code: httpStatusCodes.INTERNAL_SERVER_ERROR,

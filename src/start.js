@@ -96,10 +96,10 @@ function startServer({ port = process.env.PORT } = {}) {
 // errors properly
 function errorMiddleware(error, req, res, next) {
   if (res.headersSent) {
-    console.log("headers sent");
+    Logger.log("info", "headers sent");
     next(error);
   } else if (isCelebrate(error)) {
-    console.log("celebrate error");
+    Logger.log("info", "celebrate error");
     return Response.fail(
       res,
       "Validation Failed",

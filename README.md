@@ -2,6 +2,8 @@
 
 Save your canvas to a mongo database and restore it.
 
+Click [here](https://canvas-save-restore.herokuapp.com/) to check out
+
 ## Working
 1. Create drawing and save it to database
 2. Ask for file name before saving.
